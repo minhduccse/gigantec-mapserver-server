@@ -1,0 +1,49 @@
+MAP
+  SIZE 256 256
+  UNITS METERS
+  EXTENT -180 -90 180 90
+  NAME "test heat"
+  IMAGETYPE "png"
+
+  WEB
+    METADATA
+      "wms_srs"            "EPSG:4326 EPSG:3857"
+      "wms_enable_request" "*"
+      "wms_encoding"       "utf-8"
+    END # METADATA
+  END # WEB
+
+  PROJECTION
+    "+init=epsg:4326"
+  END # PROJECTION
+
+  LAYER
+    NAME "income"
+    TYPE raster
+    CONNECTIONTYPE kerneldensity
+    CONNECTION "points"
+    STATUS on
+    PROCESSING "RANGE_COLORSPACE=HSL"
+    PROCESSING "KERNELDENSITY_RADIUS=20"
+    PROCESSING "KERNELDENSITY_COMPUTE_BORDERS=ON"
+    PROCESSING "KERNELDENSITY_NORMALIZATION=AUTO"
+    OFFSITE 0 0 0
+    CLASS
+      STYLE
+        COLORRANGE  "#0000ff00"  "#0000ffff"
+        DATARANGE 0 32
+      END # STYLE
+      STYLE
+        COLORRANGE  "#0000ffff"  "#ff0000ff"
+        DATARANGE 32 255
+      END # STYLE
+    END # CLASS
+  END # LAYER
+
+  LAYER
+      NAME "points"
+      STATUS on
+      TYPE POINT
+      DATA "50_1.shp"
+   END # LAYER
+END # MAPFILE
