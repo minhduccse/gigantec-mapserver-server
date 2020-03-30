@@ -41,9 +41,12 @@ MAP
   END # LAYER
 
   LAYER
+      CONNECTIONTYPE postgis
       NAME "points"
+      CONNECTION "user=osm dbname=osm host=localhost password=osm port=5432"
+      PROCESSING "CLOSE_CONNECTION=DEFER"
+      DATA "geom from vehicle"
       STATUS on
       TYPE POINT
-      DATA "50_1.shp"
    END # LAYER
 END # MAPFILE
