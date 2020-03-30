@@ -30,11 +30,11 @@ MAP
     OFFSITE 0 0 0
     CLASS
       STYLE
-        COLORRANGE  "#0000ff00"  "#0000ffff"
+        COLORRANGE  "#c8f08f"  "#5aa700"
         DATARANGE 0 128
       END # STYLE
       STYLE
-        COLORRANGE  "#0000ffff"  "#ff0000ff"
+        COLORRANGE  "#5aa700"  "#2d660a"
         DATARANGE 128 255
       END # STYLE
     END # CLASS
