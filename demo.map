@@ -45,7 +45,8 @@ MAP
       NAME "points"
       CONNECTION "user=osm dbname=osm host=localhost password=osm port=5432"
       PROCESSING "CLOSE_CONNECTION=DEFER"
-      DATA "geom from vehicle"
+      DATA "geom from (select * from vehicle limit 150000) as subquery
+      using unique gid using srid=4326"
       STATUS on
       TYPE POINT
    END # LAYER
