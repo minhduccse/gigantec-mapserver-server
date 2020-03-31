@@ -49,8 +49,17 @@ MAP
     using unique gid using srid=4326"
     STATUS on
     TYPE POLYGON
+    LABELITEM "name_3"
     CLASS
       NAME 'population_step1'
+      LABEL
+        COLOR "#fc0317"
+        SIZE 12
+        ANTIALIAS TRUE
+        POSITION AUTO
+        PARTIALS FALSE
+        BUFFER 4
+      END
       STYLE
         OUTLINECOLOR 0 0 0
         COLOR "#fdbb84"
