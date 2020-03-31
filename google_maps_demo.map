@@ -23,7 +23,7 @@ MAP
     CONNECTIONTYPE kerneldensity
     CONNECTION "points"
     STATUS on
-    PROCESSING "RANGE_COLORSPACE=HSL"
+    PROCESSING "RANGE_COLORSPACE=RGB"
     PROCESSING "KERNELDENSITY_RADIUS=20"
     PROCESSING "KERNELDENSITY_COMPUTE_BORDERS=ON"
     PROCESSING "KERNELDENSITY_NORMALIZATION=NUMERIC"
@@ -41,13 +41,52 @@ MAP
   END # LAYER
 
   LAYER
-      CONNECTIONTYPE postgis
-      NAME "points"
-      CONNECTION "user=osm dbname=osm host=localhost password=osm port=5432"
-      PROCESSING "CLOSE_CONNECTION=DEFER"
-      DATA "geom from (select * from vehicle limit 150000) as subquery
-      using unique gid using srid=4326"
-      STATUS on
-      TYPE POINT
-   END # LAYER
+    NAME 'population'
+    TYPE POLYGON
+    STATUS on
+    CONNECTIONTYPE UNION
+    CONNECTION "population_step1,population_step2"
+    STYLEITEM "AUTO"
+    CLASS
+    END
+  END
+
+  LAYER
+    NAME 'population_step1'
+    TYPE POLYGON
+    STATUS OFF
+    DATA './shapefiles/population/step1/step1.shp'
+    CLASS
+      NAME 'population_step1'
+      STYLE
+        OUTLINECOLOR 0 0 0
+        COLOR "#fdbb84"
+      END
+    END
+  END
+
+  LAYER
+    NAME 'population_step2'
+    TYPE POLYGON
+    STATUS OFF
+    DATA './shapefiles/population/step2/step2.shp'
+    CLASS
+      NAME 'population_step2'
+      STYLE
+        OUTLINECOLOR 0 0 0
+        COLOR "#f8a21c"
+      END
+    END
+  END
+
+  LAYER
+    CONNECTIONTYPE postgis
+    NAME "points"
+    CONNECTION "user=osm dbname=osm host=localhost password=osm port=5432"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "geom from (select * from vehicle limit 150000) as subquery
+    using unique gid using srid=4326"
+    STATUS on
+    TYPE POINT
+  END # LAYER
 END # MAPFILE
