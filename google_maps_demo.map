@@ -41,21 +41,14 @@ MAP
   END # LAYER
 
   LAYER
-    NAME 'population'
-    TYPE POLYGON
+    NAME "population"
+    CONNECTIONTYPE postgis
+    CONNECTION "user=osm dbname=osm host=localhost password=osm port=5432"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "geom from (select * from vnm_3 where gid_1 = 'VNM.25_1') as subquery
+    using unique gid using srid=4326"
     STATUS on
-    CONNECTIONTYPE UNION
-    CONNECTION "population_step1,population_step2"
-    STYLEITEM "AUTO"
-    CLASS
-    END
-  END
-
-  LAYER
-    NAME 'population_step1'
     TYPE POLYGON
-    STATUS OFF
-    DATA './shapefiles/population/step1/step1.shp'
     CLASS
       NAME 'population_step1'
       STYLE
@@ -65,19 +58,19 @@ MAP
     END
   END
 
-  LAYER
-    NAME 'population_step2'
-    TYPE POLYGON
-    STATUS OFF
-    DATA './shapefiles/population/step2/step2.shp'
-    CLASS
-      NAME 'population_step2'
-      STYLE
-        OUTLINECOLOR 0 0 0
-        COLOR "#f8a21c"
-      END
-    END
-  END
+  # LAYER
+  #   NAME 'population_step2'
+  #   TYPE POLYGON
+  #   STATUS OFF
+  #   DATA './shapefiles/population/step2/step2.shp'
+  #   CLASS
+  #     NAME 'population_step2'
+  #     STYLE
+  #       OUTLINECOLOR 0 0 0
+  #       COLOR "#f8a21c"
+  #     END
+  #   END
+  # END
 
   LAYER
     CONNECTIONTYPE postgis
