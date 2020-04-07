@@ -18,7 +18,7 @@ MAP
   END # PROJECTION
 
   LAYER
-    NAME "income"
+    NAME "coverage"
     TYPE raster
     CONNECTIONTYPE kerneldensity
     CONNECTION "points"
@@ -41,28 +41,19 @@ MAP
   END # LAYER
 
   LAYER
-    NAME "population"
+    NAME "income"
     CONNECTIONTYPE postgis
     CONNECTION "user=osm dbname=osm host=localhost password=osm port=5432"
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "geom from (select * from vnm_3 where gid_1 = 'VNM.25_1') as subquery
-    using unique gid using srid=4326"
+    DATA "geom from (SELECT * FROM income_mapping_color LEFT JOIN (SELECT income_mapping_color.gid, color_value.color_value, MIN(color_value.max_value) FROM color_value,income_mapping_color WHERE color_value.max_value > income_mapping_color.mean GROUP BY income_mapping_color.gid, color_value.color_value) AS color_value2 ON income_mapping_color.gid = color_value2.gid) as subquery
+    using unique id using srid=4326"
     STATUS on
     TYPE POLYGON
-    LABELITEM "name_3"
     CLASS
-      NAME 'population_step1'
-      LABEL
-        COLOR "#fc0317"
-        SIZE 12
-        ANTIALIAS TRUE
-        POSITION AUTO
-        PARTIALS FALSE
-        BUFFER 4
-      END
+      NAME 'income_layer'
       STYLE
         OUTLINECOLOR 0 0 0
-        COLOR "#fdbb84"
+        COLOR [color_value]
       END
     END
   END
