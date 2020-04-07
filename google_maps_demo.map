@@ -59,19 +59,24 @@ MAP
     END
   END
 
-  # LAYER
-  #   NAME 'population_step2'
-  #   TYPE POLYGON
-  #   STATUS OFF
-  #   DATA './shapefiles/population/step2/step2.shp'
-  #   CLASS
-  #     NAME 'population_step2'
-  #     STYLE
-  #       OUTLINECOLOR 0 0 0
-  #       COLOR "#f8a21c"
-  #     END
-  #   END
-  # END
+  LAYER
+    NAME "population"
+    CONNECTIONTYPE postgis
+    CONNECTION "user=osm dbname=osm host=localhost password=osm port=5432"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "geom from (SELECT * FROM population_mapping_color) as subquery
+    using unique id using srid=4326"
+    STATUS on
+    TYPE POLYGON
+    CLASS
+      NAME 'income_layer'
+      STYLE
+        OUTLINECOLOR "#ffffff"
+        WIDTH 0.1
+        COLOR [color]
+      END
+    END
+  END
 
   LAYER
     CONNECTIONTYPE postgis
