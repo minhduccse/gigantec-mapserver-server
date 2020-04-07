@@ -69,7 +69,7 @@ MAP
     STATUS on
     TYPE POLYGON
     CLASS
-      NAME 'income_layer'
+      NAME 'population_layer'
       STYLE
         OUTLINECOLOR "#ffffff"
         WIDTH 0.1
