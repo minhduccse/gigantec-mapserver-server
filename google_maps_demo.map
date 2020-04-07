@@ -64,8 +64,8 @@ MAP
     CONNECTIONTYPE postgis
     CONNECTION "user=osm dbname=osm host=localhost password=osm port=5432"
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "geom from (SELECT * FROM population_info LEFT JOIN vnm_2 ON (population_info.gid = vnm_2.gid)) as subquery
-    using unique id using srid=4326"
+    DATA "geom from (SELECT * FROM population_info INNER JOIN vnm_2 ON (population_info.gid = vnm_2.gid)) as subquery
+    using unique geom using srid=4326"
     STATUS on
     TYPE POLYGON
     CLASS
