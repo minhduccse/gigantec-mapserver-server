@@ -52,7 +52,8 @@ MAP
     CLASS
       NAME 'income_layer'
       STYLE
-        OUTLINECOLOR 0 0 0
+        OUTLINECOLOR "#ffffff"
+        WIDTH 0.1
         COLOR [color_value]
       END
     END
