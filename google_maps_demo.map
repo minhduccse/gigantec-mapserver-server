@@ -45,8 +45,8 @@ MAP
     CONNECTIONTYPE postgis
     CONNECTION "user=osm dbname=osm host=localhost password=osm port=5432"
     PROCESSING "CLOSE_CONNECTION=DEFER"
-    DATA "geom from (SELECT * FROM income_mapping_color LEFT JOIN (SELECT income_mapping_color.gid, color_value.color_value, MIN(color_value.max_value) FROM color_value,income_mapping_color WHERE color_value.max_value > income_mapping_color.mean GROUP BY income_mapping_color.gid, color_value.color_value) AS color_value2 ON income_mapping_color.gid = color_value2.gid) as subquery
-    using unique id using srid=4326"
+    DATA "geom from (SELECT * FROM ward_table LEFT JOIN (SELECT ward_table.gid, income_info.color_value, MIN(income_info.max_value) FROM income_info,ward_table WHERE income_info.max_value > ward_table.mean GROUP BY ward_table.gid, income_info.color_value) AS color_value ON ward_table.gid = color_value.gid) as subquery
+    using unique geom using srid=4326"
     STATUS on
     TYPE POLYGON
     CLASS
